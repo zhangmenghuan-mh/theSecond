@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="natrual.css" type="text/css">
+</head>
+<body>
+<div class="maxium">
+	<div class="timeTitle" id="timeTitle">
+		<form action="">
+			<input type="button" value="时间静止！" id="timeStop">
+		</form>
+	</div>
+	<div class="head clear">
+		<img src="image/图标.png" alt="叶子">
+		<p class="headtitle">
+			大自然之谜
+		</p>
+		<div class="headaction clear">
+				<a href="#">首页</a>
+				<a href="#">植物分类</a>
+				<a href="#">组成器官</a>
+				<a href="#">主要作用</a>
+				<a href="#">价值</a>
+				<form class="form clear">
+					<input type="text" name="search" value="植物属性/名称/作用" class="search">
+					<input type="button" class="submit" >
+				</form>
+		</div>
+	</div>
+	<div class="banner">
+		<ul class="ulList">
+			<li><a href="#">---> 苔藓植物</a></li>
+			<li><a href="#">---> 蕨类植物</a></li>
+			<li><a href="#">---> 藻类植物</a></li>
+			<li><a href="#">---> 被子植物</a>
+			<li><a href="#">---> 裸子植物</a></li>
+		</ul>
+		<div class="banner_image" id="banner_image"></div>
+	</div>
+	<div class="classify">
+		<p id="flowerTitle">一起来采花呀</p>
+		<div class="flower-classify" id="flowerClassify">
+
+		</div>
+		<div class="picture clear">
+			<div class="haitang">
+				<img src="image/haitang.jpg">
+				<p>海棠无香，因为海棠暗恋去了，她怕人闻出了心事，所以舍去了香。秋海棠象征苦恋。当人们爱情遇到波折，常以秋海棠花自喻。古人称它为断肠花，借花抒发男女离别的悲伤情感。花语就便有“苦恋”了。</p>
+			</div>
+			<div class="mantianxing">
+				<img src="image/mantianxing.jpg">
+				<p>满天星是清雅之士所喜爱的花卉，素蕴含“清纯、致远、浪漫”之意。满天星的花语是思念、青春、梦境、真心喜欢。它蕴含着清纯、致远、浪漫的意思。</p>
+			</div>
+			<div class="xinghua">
+				<img src="image/xinghua.jpg">
+				<p>杏花作为春天的使者，开花是最早的，其实杏花也是酒的使者，在阳春三月，风和日丽，桃红李白，撩人心魂。</p>
+			</div>
+			<div class="dujuan">
+				<img src="image/dujuan.jpg">
+				<p>永远属于你：这是杜鹃花最浪漫的一个花语，非常适合恋人用来表达对彼此的爱恋，如果你觉得用玫瑰来表达爱意比较俗套，不妨换成杜鹃吧。</p>
+			</div>
+		</div>
+	</div>
+	<div class="banner2">
+		<p class="title">花朵欣赏</p>
+		<div id="titleFlower">鼠标移上可查看放大效果</div>
+		<div id="bigGlass">
+			<div id="small">
+				<img src="image/bigclass.jpg" alt="">
+				<div id="glass"></div>
+			</div>
+			<div id="big">
+				<img src="image/bigclass.jpg" alt="" id="bigImg">
+			</div>
+		</div> 
+	</div>
+</div>
+</body>
+<script>
+	//第一部分，设置轮播图的函数
+	function slideShow(){
+		//得到这个轮播图在HTML中的位置
+		var banner_image = document.getElementById("banner_image");
+		//构建一个img的结点，使得它可以被插入
+		var image = document.createElement("img");
+		var i = 1;
+		var imgString = "image/banner_image" + i + ".jpg";
+		var timer = setInterval(function(){
+			i ++;
+			if(i > 4){
+				i = 1;
+			}
+			imgString = "image/banner_image" + i + ".jpg";
+			image.setAttribute("src",imgString);
+		}, 2000);
+		image.setAttribute("src",imgString);
+		banner_image.appendChild(image);
+	}
+
+	//第二部分设置当前时间
+	function timeClock() {
+		var timeTitle = document.getElementById("timeTitle");
+		var timeNode = document.createElement("div");
+		var timer = setInterval(function() {
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = now.getMonth() + 1;
+			var dates = now.getDate();
+			var hours = now.getHours();
+			var minutes = now.getMinutes();
+			if(minutes < 10){
+				minutes = "0" + minutes;
+			}
+			var seconds = now.getSeconds();
+			if(seconds < 10){
+				seconds = "0" + seconds;
+			}
+			var dateString = year + "年" + month + "月" + dates +"日  " + hours + ":" + minutes + ":" + seconds;
+			timeNode.setAttribute("class","timeNode");
+			timeNode.innerText = dateString;
+			timeTitle.appendChild(timeNode);
+		},1000)
+		//设置一个可爱的按钮，用来进行时间停止
+		var timeStop = document.getElementById("timeStop");
+		timeStop.onclick = function (){
+			clearInterval(timer);
+		}
+	}
+
+	//第三部分的函数，实现放大镜的应用
+	function fangBig() {
+		var bigGlass = document.getElementById("bigGlass");
+		var small = document.getElementById("small");
+		var glass = document.getElementById("glass");
+		var big = document.getElementById("big");
+		var bigImg = document.getElementById("bigImg");
+		small.onmouseover = function (e){
+			glass.style.display = "block";
+			big.style.display = "block";
+		}
+		small.onmouseout = function (){
+			glass.style.display = "none";
+			big.style.display = "none";
+		}
+		small.onmousemove = function (e) {
+			var glassLeft = e.clientX - bigGlass.offsetLeft - glass.offsetWidth/2;
+			var glassTop = e.clientY - bigGlass.offsetTop - glass.offsetHeight/2;
+			var minLeft = 0;
+			var maxLeft = small.offsetWidth - glass.offsetWidth;
+			glassLeft = glassLeft <= 0?0:glassLeft;
+			glassLeft = glassLeft >= maxLeft?maxLeft:glassLeft;
+			var minTop = 0;
+			var maxTop = small.offsetHeight - glass.offsetHeight;
+			glassTop = glassTop <= 0?0:glassTop;
+			glassTop = glassTop >= maxTop?maxTop:glassTop;
+
+			glass.style.left = glassLeft + "px";
+			glass.style.top = glassTop + "px";
+
+			var percent = 16/5;
+			bigImg.style.left = - glassLeft*percent + "px";
+			bigImg.style.top = - glassTop*percent + "px";
+		}
+	}
+
+	//第四部分的函数，点击一个牌子就消失一个
+	function removeTit() {
+		var temp = 1;
+		function delow() {
+			var thing = this.parentNode;
+			var parent = this.parentNode.parentNode;
+			parent.removeChild(thing);
+		}
+		var i;
+		var flowerClassify = document.getElementById("flowerClassify");
+		var flowerArr = ['杜鹃花','海棠花','牡丹花','蔷薇花','水仙花','满天星','玫瑰花','薰衣草','石榴花','小桃花'];
+		for(i = 0;i < flowerArr.length;i ++){
+			var tit = document.createElement("li");
+			tit.setAttribute("class","styleTit");
+			var titBtn = document.createElement("button");
+			titBtn.setAttribute("class","styleBtn");
+			tit.appendChild(titBtn);
+			var titImg = document.createElement("img");
+			
+			titBtn.innerHTML = flowerArr[i];
+			flowerClassify.appendChild(tit);
+			var temp = 1;
+			titBtn.onclick = function () {
+				var thing = this.parentNode;
+				var parent = this.parentNode.parentNode;
+				parent.removeChild(thing);
+				temp++;
+				if(temp == flowerArr.length+1){
+				var jumpSaying = document.createElement("p");
+				jumpSaying.innerHTML = "诶呀"+"</br>"+"花都采完了"+"</br>"+"再种一些吧！";
+				jumpSaying.setAttribute("class","flowerTitle");
+				flowerClassify.appendChild(jumpSaying);
+			}
+			}
+		}
+	}
+
+	slideShow();  //调用第一部分轮播图的函数
+	timeClock();  //调用第二部分时刻表的函数
+	fangBig();    //调用第三部分放大镜的函数
+	removeTit();  //调用第四部分删除的函数
+</script>
+</html>
